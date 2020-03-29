@@ -1,17 +1,12 @@
-<html>
-    <head>
-        <title>SLD&Travvy Events</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">SLD&Travvy Events</a></h1>
+{% extends 'wcal/base.html' %}
+    {% block content %}
+{% for event in events %}
+    <div class="event">
+        <h1><a href="{% url 'event_detail' pk=event.pk %}">{{ event.title }}</a></h1>
+        <p>{{ event.text|linebreaksbr }}</p>
+        <div class="date">
+            <p>дата: {{ event.event_date }}</p>
         </div>
-        {% for event in events %}
-            <div>
-                <h1><a href="">{{ event.title }}</a></h1>
-                <p>{{ event.text|linebreaksbr }}</p>
-                <p>будет: {{ event.event_date }}</p>
-            </div>
-        {% endfor %}
-    </body>
-</html>
+    </div>
+{% endfor %}
+    {% endblock %}
