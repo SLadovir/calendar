@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -23,10 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6=zzvttr2$fk69l5lkxl$&+r$dbqs6++q9jsndwo=0kj=m!em0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # для дебага
+DEBUG = True  # для дебага
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com'] #где хосты могут быть
-
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']  # где хосты могут быть
 
 # Application definition
 
@@ -37,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wcal', #добавлем папки всякие (в dg написано blog)
+    'wcal',  # добавлем папки всякие (в dg написано blog)
 ]
 
 MIDDLEWARE = [
@@ -70,7 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -80,7 +77,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-#Чтобы создать базу данных для нашего календаря(блога), набери в командной строке следующее: python manage.py migrate
+# Чтобы создать базу данных для нашего календаря(блога), набери в командной строке следующее: python manage.py migrate
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -100,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -114,9 +110,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') #чтобы юзать статические файлы (css)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # чтобы юзать статические файлы (css)
