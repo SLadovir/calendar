@@ -6,8 +6,7 @@
 {% endblock %}
 
     {% block content %}
-    <a href="/past/">прошлые события</a>
-
+    <a href="/">Все события</a>
 {% for event in events %}
     <div class="event">
         <h1><a href="{% url 'event_detail' pk=event.pk %}">{{ event.title }}</a></h1>

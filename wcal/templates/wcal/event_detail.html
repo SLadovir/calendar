@@ -1,3 +1,6 @@
+<!-- это кароче когда нажимаешь на сбытие, открывается -->
+<!-- редактирование события и просмотр -->
+
 {% extends 'wcal/base.html' %}
 
 {% block content %}
@@ -7,6 +10,7 @@
                 {{ event.event_date }}
             </div>
         {% endif %}
+        <a class="btn btn-default" href="{% url 'event_edit' pk=event.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
         <h1>{{ event.title }}</h1>
         <p>{{ event.text|linebreaksbr }}</p>
     </div>
