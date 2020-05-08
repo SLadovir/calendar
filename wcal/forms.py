@@ -9,3 +9,4 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('title', 'text', 'event_date',)
+

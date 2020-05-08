@@ -1,33 +1,22 @@
-from django.shortcuts import render
+from datetime import datetime
+
 from django.utils import timezone
 from .models import Event
 from django.shortcuts import render, get_object_or_404
 from .forms import EventForm  # для формы добавления события (из текущего каталога)
 from django.shortcuts import redirect  # для того чтобы после редактирования события мы сразу переходили к деталям
 
-from django.http import HttpResponse
 
-
-def day_detail(request):  # не работает
-    events = Event.objects.order_by('event_date').filter(
-        event_date__lte=pk)  # - это типа чтобы показывались событя которые прошли, также можно сделать чтобы
-    # показывались события которыетолько будут
-    return render(request, 'wcal/past_event_list.html', {'events': events})
+def day_detail(request, year=1970, month=1, day=2):  # работает с костылем(day - 1)
+    events = Event.objects.order_by('event_date').filter(event_date__lte=datetime(
+        year, month, day)).exclude(event_date__lte=datetime(year, month, day-1))  # - это типа
+    # чтобы показывались события того года месяца и дня, которые в запросе
+    return render(request, 'wcal/event_list.html', {'events': events})
 
 
 def calendar(request):  # надо сделать чтобы создавался хтмлевский файл в нужную директорию
-    events = Event.objects.order_by('event_date')
-    import calendar
-    a = calendar.LocaleHTMLCalendar(locale='Russian_Russia')
-    with open('calendarpy.html', 'w') as g:
-        print(a.formatyear(2020, width=4), file=g)
-    return render(request, 'wcal/calendar.html', {'events': events})
-
-
-'''def future_event_list(request):#это те события, которые уже прошли -------- надо реализовать ----------- events =
-Event.objects.order_by('event_date').filter(event_date__lte=timezone.now()) #- это типа чтобы показывались событя
-которые прошли, также можно сделать чтобы показывались события которыетолько будут return render(request,
-'wcal/future_event_list.html', {'events': events}) '''
+    # events = Event.objects.order_by('event_date')
+    return render(request, 'wcal/calendar.html')
 
 
 def event_list(request):  # это все события которые были и будут
@@ -54,11 +43,10 @@ def event_detail(request, pk):
 
 
 def event_new(request):
-    if request.method == "POST":  # тут не надо переимменовывать POST!!!! (это метод)
+    if request.method == "POST":  # если мы отправяем тут форму, то все пойдет
         form = EventForm(request.POST)
         if form.is_valid():
             event = form.save(commit=False)
-            # event.author = request.user - это нам не нужно, но пусть будет
             event.created_date = timezone.now()
             event.save()
             return redirect('event_detail', pk=event.pk)

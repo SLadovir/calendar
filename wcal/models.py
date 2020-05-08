@@ -22,10 +22,6 @@ class Event(models.Model):
         return self.title  # + " " + category (то, что будет видно в редакторе, мб сначала категорию)
 
 
-class EventDate(models.Model):  # сделаем страничку с днями такую же как и с событиями
-    # и будем туда выводить day_detail.html
-    date = models.ForeignKey(Event, on_delete=models.CASCADE)
-
 # после изменений набрать в командной строке: python manage.py makemigrations wcal
 # в dg(djangogirls) вместо Events написано Post
 # Django создал для нас файл с миграцией для базы данных. Набери python manage.py migrate wcal /////(blog)
