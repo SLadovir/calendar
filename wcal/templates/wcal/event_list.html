@@ -1,13 +1,12 @@
 {% extends 'wcal/base.html' %}
 
 
-{% block calend %}
-
-{% endblock %}
-
     {% block content %}
-    <a href="/past/">прошлые события</a>
-
+    <a href="/past/">Прошлые события</a>
+    <br>
+    <a href="/">Все события</a>
+    <br>
+    <a href="/future/">Предстоящие события</a>
 {% for event in events %}
     <div class="event">
         <h1><a href="{% url 'event_detail' pk=event.pk %}">{{ event.title }}</a></h1>

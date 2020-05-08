@@ -1,25 +1,11 @@
 {% extends 'wcal/base.html' %}
 
 
-{% block calend %}
-
-{% endblock %}
-
     {% block content %}
-
-<html lang="en">
-    <head>
-
-
-
-    </head>
-    <body>
-        <div id="calendar"></div>
-
-    </body>
-</html>
-
-
+    <form>
+        <p>Выберите дату: <input type="date" name="calendar">
+        <input type="submit" value="получить информацию о дате"></p>
+    </form>
 
     <style>
 #calendar3 {

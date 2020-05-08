@@ -3,34 +3,24 @@ from django.utils import timezone
 from .models import Event
 from django.shortcuts import render, get_object_or_404
 from .forms import EventForm  # для формы добавления события (из текущего каталога)
-from django.shortcuts import \
-    redirect  # для того чтобы после редактирования события мы сразу переходили к деталям события
+from django.shortcuts import redirect  # для того чтобы после редактирования события мы сразу переходили к деталям
+
+from django.http import HttpResponse
 
 
-# кароч эта штука отвечает за представление всяких событий
-def event_list(request):  # это все события которые были и будут
-    events = Event.objects.order_by('event_date')  # .filter(event_date__lte=timezone.now()) - это типа чтобы
-    # показывались событя которые прошли,
-    # также можно сделать чтобы показывались события которыетолько будут
-    # dg-posts-events
-    return render(request, 'wcal/event_list.html', {'events': events})
-    # (исправления в двух местах !!!)в dg написано post_list вместо event_list
-    # в dg написано blog вместо wcal
-
-
-def day_detail(request, pk):  # не работает
+def day_detail(request):  # не работает
     events = Event.objects.order_by('event_date').filter(
         event_date__lte=pk)  # - это типа чтобы показывались событя которые прошли, также можно сделать чтобы
     # показывались события которыетолько будут
     return render(request, 'wcal/past_event_list.html', {'events': events})
 
 
-def calendar(request):  # перенести в другое app
+def calendar(request):  # надо сделать чтобы создавался хтмлевский файл в нужную директорию
     events = Event.objects.order_by('event_date')
-    # import calendar
-    # a = calendar.LocaleHTMLCalendar(locale='Russian_Russia')
-    # with open('calendar.html', 'w') as g:
-        # print(a.formatyear(2020, width=4), file=g)
+    import calendar
+    a = calendar.LocaleHTMLCalendar(locale='Russian_Russia')
+    with open('calendarpy.html', 'w') as g:
+        print(a.formatyear(2020, width=4), file=g)
     return render(request, 'wcal/calendar.html', {'events': events})
 
 
@@ -40,11 +30,22 @@ Event.objects.order_by('event_date').filter(event_date__lte=timezone.now()) #- �
 'wcal/future_event_list.html', {'events': events}) '''
 
 
-def past_event_list(request):  # это те события, которые уже прошли -------- надо реализовать -----------
-    events = Event.objects.order_by('event_date').filter(
-        event_date__lte=timezone.now())  # - это типа чтобы показывались событя которые прошли, также можно сделать
-    # чтобы показывались события которыетолько будут
-    return render(request, 'wcal/past_event_list.html', {'events': events})
+def event_list(request):  # это все события которые были и будут
+    events = Event.objects.order_by('event_date')
+    # также можно сделать чтобы показывались события которыетолько будут
+    return render(request, 'wcal/event_list.html', {'events': events})
+
+
+def past_event_list(request):  # это те события, которые уже прошли
+    events = Event.objects.order_by('event_date').filter(event_date__lte=timezone.now())  # - это типа чтобы
+    # показывались событя которые прошли
+    return render(request, 'wcal/event_list.html', {'events': events})
+
+
+def future_event_list(request):  # это те события, которые будут
+    events = Event.objects.order_by('event_date').exclude(event_date__lte=timezone.now())  # - это типа чтобы
+    # показывались событя которые будут
+    return render(request, 'wcal/event_list.html', {'events': events})
 
 
 def event_detail(request, pk):
