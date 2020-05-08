@@ -4,8 +4,9 @@ $(function(){
         dayClick: function(){
             alert('Работает!')
         }
-        theme: true,
-
+//        theme: true,
     });
 
 })
+
+//тупа тестим функции и добавляем в мейн

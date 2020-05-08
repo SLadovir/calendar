@@ -21,11 +21,12 @@ class Event(models.Model):
     def __str__(self):
         return self.title  # + " " + category (то, что будет видно в редакторе, мб сначала категорию)
 
-    # с сайта
-    @property
-    def get_html_url(self):
-        url = reverse('event_edit', args=(self.id,))
-        return f'<p>{self.title}</p><a href="{url}">edit</a>'
+
+
+
+class EventDate(models.Model): # сделаем страничку с днями такую же как и с событиями
+    # и будем туда выводить day_detail.html
+    date = models.ForeignKey(Event, on_delete = models.CASCADE)
 
 # после изменений набрать в командной строке: python manage.py makemigrations wcal
 # в dg(djangogirls) вместо Events написано Post

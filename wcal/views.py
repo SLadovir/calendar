@@ -26,11 +26,12 @@ def day_detail(request, pk):  # не работает
 
 
 def calendar(request):  # перенести в другое app
+    events = Event.objects.order_by('event_date')
     # import calendar
     # a = calendar.LocaleHTMLCalendar(locale='Russian_Russia')
     # with open('calendar.html', 'w') as g:
         # print(a.formatyear(2020, width=4), file=g)
-    return render(request, 'wcal/calendar.html')
+    return render(request, 'wcal/calendar.html', {'events': events})
 
 
 '''def future_event_list(request):#это те события, которые уже прошли -------- надо реализовать ----------- events =
